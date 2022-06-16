@@ -1,5 +1,6 @@
-from app.entities.agenda import Agenda
 import os
+
+from app.entities.agenda import Agenda
 
 
 def clear(): return os.system('cls')
@@ -27,11 +28,19 @@ def cria_contato():
     cidade = input("Escreva sua cidade: ")
     estado = input("Escreva seu estado: ")
     status = input("Pessoal ou Comercial: ")
+    while True:
+        if status.upper() == 'P' or status.upper() == 'C':
+            break
+        else:
+            print('ERRO: Valor invalido!')
+            print('Valores validos: P -> Pessoal, C -> Comercial')
+            status = input("Pessoal ou Comercial: ")
     agenda = Agenda(id, nome, telefone, cidade, estado, status)
     return agenda
 
 
 def insere_contato():
+    clear()
     contato = cria_contato()
     contatos.append(contato)
     print(f'<{contato.nome}> inserido com sucesso!')
@@ -39,6 +48,7 @@ def insere_contato():
 
 
 def altera_contato():
+    clear()
     nome = input('Informe o nome do contato: ')
     for contato in contatos:
         if contato.nome == nome:
@@ -48,6 +58,13 @@ def altera_contato():
             cidade = input("Escreva sua cidade: ")
             estado = input("Escreva seu estado: ")
             status = input("Pessoal ou Comercial: ")
+            while True:
+                if status.upper() == 'P' or status.upper() == 'C':
+                    break
+                else:
+                    print('ERRO: Valor invalido!')
+                    print('Valores validos: P -> Pessoal, C -> Comercial')
+                    status = input("Pessoal ou Comercial: ")
             agenda = Agenda(id, nome, telefone, cidade, estado, status)
             contatos[contatos.index(contato)] = agenda
             break
@@ -57,6 +74,7 @@ def altera_contato():
 
 
 def lista_contatos():
+    clear()
     if len(contatos) == 0:
         print('Agenda vazia!')
     else:
@@ -66,6 +84,7 @@ def lista_contatos():
 
 
 def procura_contato():
+    clear()
     nome = input('Informe o nome do contato: ')
     nomes = []
     existe = False
@@ -85,6 +104,7 @@ def procura_contato():
 
 
 def exclui_contato():
+    clear()
     nome = input('Informe o nome do contato: ')
     nomes = []
     existe = False
@@ -96,6 +116,7 @@ def exclui_contato():
     if existe:
         for nome in nomes:
             contatos.remove(nome)
+            print('Cadastro excluído')
         input('Enter para voltar ao menu!')
     else:
         print(f'Pessoa com o nome {nome} não encontrada')
@@ -104,6 +125,7 @@ def exclui_contato():
 
 
 def sair():
+    clear()
     exit()
 
 
@@ -123,3 +145,6 @@ while True:
         exclui_contato()
     elif opcao == 6:
         sair()
+    else:
+        print('Erro: opção inválida!')
+        input('Enter para voltar ao menu!')
